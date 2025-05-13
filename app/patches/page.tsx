@@ -91,7 +91,7 @@ const statusColorMap = {
   'Failed': 'text-red-500',
 };
 
-const severityColorMap = {
+const severityColorMap: Record<string, string> = {
   'Critical': 'bg-red-500',
   'High': 'bg-orange-500',
   'Medium': 'bg-yellow-500',
