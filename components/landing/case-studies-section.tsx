@@ -148,7 +148,7 @@ export function CaseStudiesSection() {
                     </div>
 
                     <div className="md:w-1/3 bg-card/50 rounded-lg p-6">
-                      <div className="text-xl italic text-muted-foreground mb-6">"{study.quote}"</div>
+                      <div className="text-xl italic text-muted-foreground mb-6">{study.quote}</div>
                       <div className="font-medium">{study.author}</div>
                     </div>
                   </div>

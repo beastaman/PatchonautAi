@@ -55,7 +55,7 @@ const activities = [
   },
 ];
 
-const activityColorMap = {
+const activityColorMap: Record<string, string> = {
   success: 'text-green-500',
   warning: 'text-yellow-500',
   error: 'text-red-500',

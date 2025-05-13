@@ -7,7 +7,19 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { PlayIcon, PauseIcon, CheckIcon } from 'lucide-react';
 
-const patches = [
+type PatchStatus = 'In Progress' | 'Queued' | 'Completed' | 'Failed';
+
+interface Patch {
+    id: string;
+    name: string;
+    status: PatchStatus;
+    progress: number;
+    servers: string;
+    statusColor: string;
+    eta: string;
+}
+
+const patches : Patch[] = [
 	{
 		id: 'PATCH-1234',
 		name: 'Security Update KB5023778',
@@ -46,7 +58,7 @@ const patches = [
 	},
 ];
 
-const statusBadgeMap = {
+const statusBadgeMap: Record<string, string> = {
 	'In Progress': 'bg-yellow-500/20 text-yellow-500 hover:bg-yellow-500/30',
 	Queued: 'bg-blue-500/20 text-blue-500 hover:bg-blue-500/30',
 	Completed: 'bg-green-500/20 text-green-500 hover:bg-green-500/30',

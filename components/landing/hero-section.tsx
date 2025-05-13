@@ -24,7 +24,16 @@ import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
 // Star component for background
-const Star = ({ size, top, left, opacity, delay }) => {
+interface StarProps {
+    size: number;
+    top: number;
+    left: number;
+    opacity: number;
+    delay: number;
+}
+
+// Star component for background
+const Star: React.FC<StarProps> = ({ size, top, left, opacity, delay }) => {
   return (
     <motion.div
       className="absolute rounded-full bg-white"
@@ -50,7 +59,14 @@ const Star = ({ size, top, left, opacity, delay }) => {
 }
 
 // Animated chart component
-const AnimatedChart = ({ type, delay, className }) => {
+interface AnimatedChartProps {
+    type: "bar" | "line";
+    delay: number;
+    className?: string;
+}
+
+// Animated chart component
+const AnimatedChart: React.FC<AnimatedChartProps> = ({ type, delay, className }) => {
   const chartVariants = {
     bar: {
       heights: [
@@ -134,9 +150,15 @@ const AnimatedChart = ({ type, delay, className }) => {
 
   return null
 }
-
 // Floating badge component
-const FloatingBadge = ({ children, delay = 0, x = 0, y = 0 }) => {
+interface FloatingBadgeProps {
+    children: React.ReactNode;
+    delay?: number;
+    x?: number;
+    y?: number;
+}
+// Floating badge component
+const FloatingBadge: React.FC<FloatingBadgeProps> = ({ children, delay = 0, x = 0, y = 0 }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -158,7 +180,13 @@ const FloatingBadge = ({ children, delay = 0, x = 0, y = 0 }) => {
 }
 
 // Company logo component
-const CompanyLogo = ({ name, delay }) => {
+interface CompanyLogoProps {
+    name: string;
+    delay: number;
+}
+
+// Company logo component
+const CompanyLogo: React.FC<CompanyLogoProps>  = ({ name, delay }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -176,7 +204,16 @@ const CompanyLogo = ({ name, delay }) => {
 }
 
 // ROI Metric component
-const ROIMetric = ({ icon: Icon, title, value, subtitle, delay = 0 }) => {
+interface ROIMetricProps {
+    icon: React.ElementType;
+    title: string;
+    value: string;
+    subtitle: string;
+    delay?: number;
+}
+
+// ROI Metric component
+const ROIMetric: React.FC<ROIMetricProps> = ({ icon: Icon, title, value, subtitle, delay = 0 }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

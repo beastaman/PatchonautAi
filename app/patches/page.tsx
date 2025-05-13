@@ -84,7 +84,7 @@ const patchData = [
   },
 ];
 
-const statusColorMap = {
+const statusColorMap: Record<string, string> = {
   'In Progress': 'text-yellow-500',
   'Queued': 'text-blue-500',
   'Completed': 'text-green-500',
