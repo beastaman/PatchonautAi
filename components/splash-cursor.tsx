@@ -116,7 +116,7 @@ export function SplashCursor({
         antialias: false,
         preserveDrawingBuffer: false,
       };
-      let gl = canvas.getContext("webgl2", params) as WebGLRenderingContext | WebGL2RenderingContext;
+      let gl = canvas.getContext("webgl2", params) as WebGLRenderingContext | null;
           let isWebGL2 = !!gl;
           if (!gl) {
               gl = canvas.getContext("webgl", params) as WebGLRenderingContext;
@@ -126,14 +126,15 @@ export function SplashCursor({
       let supportLinearFiltering: any;
       let RGBA16F = 0x881a, RG16F = 0x822f, R16F = 0x822d, RED = 0x1903, RG = 0x8227;
       if (isWebGL2 && gl instanceof WebGL2RenderingContext) {
-        gl.getExtension("EXT_color_buffer_float");
+        const gl2 = gl as WebGL2RenderingContext;
+        gl2.getExtension("EXT_color_buffer_float");
         supportLinearFiltering = gl.getExtension("OES_texture_float_linear");
         // Use WebGL2 constants if available
-        RGBA16F = gl.RGBA16F || RGBA16F;
-        RG16F = gl.RG16F || RG16F;
-        R16F = gl.R16F || R16F;
-        RED = gl.RED || RED;
-        RG = gl.RG || RG;
+        RGBA16F = gl2.RGBA16F || RGBA16F;
+        RG16F = gl2.RG16F || RG16F;
+        R16F = gl2.R16F || R16F;
+        RED = gl2.RED || RED;
+        RG = gl2.RG || RG;
       } else {
         halfFloat = gl.getExtension("OES_texture_half_float");
         supportLinearFiltering = gl.getExtension("OES_texture_half_float_linear");
@@ -211,14 +212,19 @@ export function SplashCursor({
       type: any
     ) {
       if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
+           if ("R16F" in gl) {
+            const gl2 = gl as WebGL2RenderingContext;
         switch (internalFormat) {
-          case gl.R16F:
-            return getSupportedFormat(gl, gl.RG16F, gl.RG, type);
-          case gl.RG16F:
-            return getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, type);
+          
+          case gl2.R16F:
+            return getSupportedFormat(gl2, gl2.RG16F, gl2.RG, type);
+          case gl2.RG16F:
+            return getSupportedFormat(gl2, gl2.RGBA16F, gl2.RGBA, type);
           default:
             return null;
         }
+      }
+      return null;
       }
       return {
         internalFormat,
