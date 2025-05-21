@@ -205,32 +205,27 @@ export function SplashCursor({
       return status === gl.FRAMEBUFFER_COMPLETE;
     }
 
-    function getSupportedFormat(
-      gl: WebGLRenderingContext | WebGL2RenderingContext,
-      internalFormat: number,
-      format: number,
-      type: any
-    ) {
-      if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
-           if ("R16F" in gl) {
-            const gl2 = gl as WebGL2RenderingContext;
-        switch (internalFormat) {
-          
-          case gl2.R16F:
-            return getSupportedFormat(gl2, gl2.RG16F, gl2.RG, type);
-          case gl2.RG16F:
-            return getSupportedFormat(gl2, gl2.RGBA16F, gl2.RGBA, type);
-          default:
-            return null;
+function getSupportedFormat(
+    gl: WebGLRenderingContext | WebGL2RenderingContext,
+    internalFormat: number,
+    format: number,
+    type: any
+): { internalFormat: number; format: number } | null {
+    if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
+        if (gl instanceof WebGL2RenderingContext) {
+            switch (internalFormat) {
+                case gl.R16F:
+                    return getSupportedFormat(gl, gl.RG16F, gl.RG, type);
+                case gl.RG16F:
+                    return getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, type);
+                default:
+                    return null;
+            }
         }
-      }
-      return null;
-      }
-      return {
-        internalFormat,
-        format,
-      };
+        return null;
     }
+    return { internalFormat, format };
+}
 
     const { gl, ext } = getWebGLContext(safeCanvas);
 
