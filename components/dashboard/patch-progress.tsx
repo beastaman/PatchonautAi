@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { PlayIcon, PauseIcon, CheckIcon } from 'lucide-react';
+import { Play, Pause, Check } from 'lucide-react';
 
 type PatchStatus = 'In Progress' | 'Queued' | 'Completed' | 'Failed';
 
@@ -66,10 +66,10 @@ const statusBadgeMap: Record<string, string> = {
 };
 
 const actionButtonMap = {
-	'In Progress': { icon: PauseIcon, text: 'Pause' },
-	Queued: { icon: PlayIcon, text: 'Start' },
-	Completed: { icon: CheckIcon, text: 'View Report' },
-	Failed: { icon: PlayIcon, text: 'Retry' },
+	'In Progress': { icon: Pause, text: 'Pause' },
+	Queued: { icon: Play, text: 'Start' },
+	Completed: { icon: Check, text: 'View Report' },
+	Failed: { icon: Play, text: 'Retry' },
 };
 
 export function PatchProgress() {
