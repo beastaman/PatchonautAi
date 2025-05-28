@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    transpilePackages: ['lucide-react'],
+  transpilePackages: ['lucide-react', '@radix-ui/react-progress'],
   output: 'export',
   eslint: {
     ignoreDuringBuilds: true,
